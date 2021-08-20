@@ -38,4 +38,27 @@ window.addEventListener('DOMContentLoaded', function () {
     };
 
     countTimer('21 august 2021');
+
+    //Menu
+
+    const toggleMenu = () =>{
+
+        const bntMenu = document.querySelector('.menu');
+        const menu = document.querySelector('menu');
+        const closeBtn = document.querySelector('.close-btn');
+
+        bntMenu.addEventListener('click', () => {
+            if(!menu.style.transform || menu.style.transform === 'translate(-100%)'){
+                menu.style.transform = `translateX(0)`;
+            } else{
+                menu.style.transform = `translateX(-100)`;
+            }
+        });
+
+        closeBtn.addEventListener('click', () => {
+            menu.style.transform = `translate(-100%)`;
+        });
+    }
+
+    toggleMenu();
 });
