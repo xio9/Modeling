@@ -63,21 +63,26 @@ window.addEventListener('DOMContentLoaded', function () {
         const popup = document.querySelector('.popup');
         const popupBtn = document.querySelectorAll('.popup-btn');
         const popupClose = document.querySelector('.popup-close');
+        const screenWidth = window.screen.width
 
         let count = -100;
 
         const showPopUp = () => {
-            popup.style.top = count + '%';
-            popup.style.display = 'block';
-            let timer = setInterval(function() {
-                if (count >= 0) {
-                    clearInterval(timer);
-                }
-                else {
-                    count++;
-                    popup.style.top = count + '%';
-                }
-            }, 1);
+            if(screenWidth > 768){
+                popup.style.top = count + '%';
+                popup.style.display = 'block';
+                let timer = setInterval(function() {
+                    if (count >= 0) {
+                        clearInterval(timer);
+                    }
+                    else {
+                        count++;
+                        popup.style.top = count + '%';
+                    }
+                }, 1);
+            } else{
+                console.log('none');
+            }
         };
 
 
