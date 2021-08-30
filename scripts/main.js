@@ -261,6 +261,25 @@ window.addEventListener('DOMContentLoaded', function () {
         dotsHeader.children[0].classList.add('dot-active');
     }
 
+    const setCommandImg = () => {
+		const command = document.querySelector('#command .row');
+
+		const changingPhotos = (event) => {
+			const target = event.target;
+
+			if (target.classList.contains('command__photo')) {
+				const lastSrc = target.src;
+
+				target.src = target.dataset.img;
+				target.dataset.img = lastSrc;
+			}
+		};
+
+		command.addEventListener('mouseover', changingPhotos);
+		command.addEventListener('mouseout', changingPhotos);
+	};
+
+    setCommandImg();
     addDots();
     slider();
 
@@ -306,9 +325,28 @@ window.addEventListener('DOMContentLoaded', function () {
             target.matches('.calc-day')||
             target.matches('.calc-count')){
                 countSome();
+                target.value = event.target.value.replace(/\D/g, '');
             }
         });
     };  
 
     calc(100);
+
+    const form = () => {
+        const form = document.getElementById('form2');
+
+        form.addEventListener('change', (event) => {
+            const target = event.target;
+            if(target.matches('.top-form') ||
+            target.matches('.mess')
+            ){
+                target.value = event.target.value.replace(/\d/g, '');
+            }
+            if(target.matches('.form-email')){
+                target.value = event.target.value.replace(/\d/g, '');
+            }
+        });
+    }
+
+    form();
 });
