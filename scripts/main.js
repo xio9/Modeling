@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', function () {
         idInterval = setInterval(updateClock, 1000);
     };
 
-    countTimer('31 august 2021');
+    countTimer('7 september 2021');
 
     //Menu
 
@@ -356,6 +356,8 @@ window.addEventListener('DOMContentLoaded', function () {
         const successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
         const form = document.getElementById('form1');
+        const popup = document.querySelector('.popup');
+        const connect = document.getElementById('connect');
 
         const statusMessage = document.createElement('div');
         statusMessage.textContent = 'Тут будет сообщение!';
@@ -365,6 +367,54 @@ window.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
             form.appendChild(statusMessage);
 
+            let body = {};
+            formData.forEach((val, key) => {
+                body[key] = val;
+            });
+            postData(body, () => {
+                statusMessage.textContent = successMessage;
+            },
+            (error) => {
+                console.log(error);
+                statusMessage.textContent = errorMessage;
+            });
+        });
+
+        popup.addEventListener('submit', (event) => {
+            event.preventDefault();
+            popup.appendChild(statusMessage);
+
+            let body = {};
+            formData.forEach((val, key) => {
+                body[key] = val;
+            });
+            postData(body, () => {
+                statusMessage.textContent = successMessage;
+            },
+            (error) => {
+                console.log(error);
+                statusMessage.textContent = errorMessage;
+            });
+        });
+
+        connect.addEventListener('sunmit', (event) => {
+            event.preventDefault();
+            connect.appendChild(statusMessage);
+
+            let body = {};
+            formData.forEach((val, key) => {
+                body[key] = val;
+            });
+            postData(body, () => {
+                statusMessage.textContent = successMessage;
+            },
+            (error) => {
+                console.log(error);
+                statusMessage.textContent = errorMessage;
+            });
+        });
+
+        const postData = (body, outputData, errorData) => {
             const request = new XMLHttpRequest();
 
             request.addEventListener('readystatechange', () => {
@@ -375,9 +425,9 @@ window.addEventListener('DOMContentLoaded', function () {
                 }
 
                 if(request.status === 200){
-                    statusMessage.textContent = successMessage;
+                    outputData();
                 } else {
-                    statusMessage.textContent = errorMessage;
+                    errorData(request.status);
                 }
             });
 
@@ -385,18 +435,9 @@ window.addEventListener('DOMContentLoaded', function () {
             request.setRequestHeader('Content-Type', 'application/json');
             
             const formData = new FormData(form);
-            let body = {};
-
-            // for(let val of formData.entries()){
-            //     body[val[0]] = val[1];
-            // }
-
-            formData.forEach((val, key) => {
-                body[key] = val;
-            });
 
             request.send(JSON.stringify(body));
-        });
+        }
     };
 
     sendForm();
